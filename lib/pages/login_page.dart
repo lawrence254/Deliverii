@@ -1,6 +1,8 @@
-import 'package:delifood/components/CustomButton.dart';
-import 'package:delifood/components/Textfields.dart';
+import 'package:delifood/components/custom_button.dart';
+import 'package:delifood/components/custom_text_field.dart';
 import 'package:flutter/material.dart';
+
+import 'home_page.dart';
 
 class LoginPage extends StatefulWidget{
   final void Function()? onTap;
@@ -14,6 +16,13 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  void loginHandler(){
+    Navigator.push(context,
+        MaterialPageRoute(
+            builder: (context)=> const HomePage()
+        )
+    );
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
 
             const SizedBox(height: 20,),
             CustomButton(
-                onTap:(){},
+                onTap:loginHandler,
                 label: "Sign in"
             ),
             const SizedBox(height: 25,),

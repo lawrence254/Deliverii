@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../components/CustomButton.dart';
-import '../components/Textfields.dart';
+import '../components/custom_button.dart';
+import '../components/custom_text_field.dart';
 
 class RegisterPage extends StatefulWidget{
   final void Function()? onTap;
