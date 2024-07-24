@@ -1,3 +1,4 @@
+import 'package:delifood/pages/cart_page.dart';
 import 'package:flutter/material.dart';
 
 class CustomSliverBar extends StatelessWidget{
@@ -13,7 +14,9 @@ class CustomSliverBar extends StatelessWidget{
       floating: false,
       pinned: true,
       actions: [
-        IconButton(onPressed: (){},
+        IconButton(onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>CartPage()));
+        },
             icon: const Icon(Icons.shopping_cart)
         )
       ],

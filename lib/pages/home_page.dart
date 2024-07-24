@@ -3,7 +3,12 @@ import 'package:delifood/components/custom_drawer.dart';
 import 'package:delifood/components/custom_sliver_bar.dart';
 import 'package:delifood/components/custom_tabs.dart';
 import 'package:delifood/components/description_box.dart';
+import 'package:delifood/components/food_tile.dart';
+import 'package:delifood/models/food.dart';
+import 'package:delifood/models/restaurants.dart';
+import 'package:delifood/pages/food_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget{
   const HomePage({super.key});
@@ -19,7 +24,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-    _tabController= TabController(length: 3, vsync: this);
+    _tabController= TabController(length: FoodCategory.values.length, vsync: this);
   }
 
   @override
@@ -28,6 +33,27 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     super.dispose();
   }
 
+  List<Food> _filterBycategory(FoodCategory category, List<Food> menu){
+    return menu.where((food)=> food.foodCategory==category).toList();
+  }
+
+  List<Widget> getFoodInCategory(List<Food> fullMenu){
+    return FoodCategory.values.map((category){
+      List<Food> categoryMenu=_filterBycategory(category, fullMenu).toList();
+      return ListView.builder(
+        itemCount: categoryMenu.length,
+        physics: const NeverScrollableScrollPhysics(),
+        padding: EdgeInsets.zero,
+        itemBuilder: (context, index){
+          final food = categoryMenu[index];
+          return FoodTile(food: food, onTap:  ()=>Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context)=>FoodPage(food: food))
+          ));
+        },
+      );
+    }).toList();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,13 +76,11 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             ),
           )
         ],
-        body: TabBarView(
-          controller: _tabController,
-          children: [
-            Text("Home"),
-            Text("Profile"),
-            Text("Cloud")
-          ],
+        body: Consumer<Restaurant>(builder: (context, restaurant, child)=>
+          TabBarView(
+            controller: _tabController,
+            children: getFoodInCategory(restaurant.menu),
+          ),
         ),
       ),
     );
