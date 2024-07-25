@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:delifood/models/cart_item.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 
 import 'food.dart';
 
@@ -360,19 +361,20 @@ class Restaurant extends ChangeNotifier{
   }
 
   double getTotalPrice(){
-    double total=0.0;
+    double total = 0.0;
 
     for(CartItem item in _cart){
       double itemTotal = item.food.price;
       for(Addon addon in item.selectedAddons){
         itemTotal += addon.price;
       }
-      total = itemTotal* item.quantity;
+      total += itemTotal * item.quantity;
     }
     return total;
-}
+  }
 
-int getTotalItemCount(){
+
+  int getTotalItemCount(){
     int itemCount=0;
     for(CartItem item in _cart){
       itemCount+=item.quantity;
@@ -383,6 +385,44 @@ int getTotalItemCount(){
 void clearCart(){
     _cart.clear();
     notifyListeners();
+}
+
+String displayReceipt(){
+    final receipt = StringBuffer();
+    receipt.writeln("Here's your receipt.");
+    receipt.writeln();
+
+    String formattedDate = DateFormat("dd-mm-yyyy HH:mm:ss").format(DateTime.now());
+    receipt.writeln(formattedDate);
+    receipt.writeln();
+    receipt.writeln("***************");
+
+    for(final cartItem in _cart){
+      receipt.writeln(
+        '${cartItem.quantity} x ${cartItem.food.name} - ${_formatPrice(cartItem.food.price*120)}'
+      );
+      if(cartItem.selectedAddons.isNotEmpty){
+        receipt.writeln(
+          'Add-ons: ${_formatAddons(cartItem.selectedAddons)}'
+        );
+
+      }
+      receipt.writeln();
+    }
+    receipt.writeln("***************");
+    receipt.writeln();
+    receipt.writeln('Total items: ${getTotalItemCount()}');
+    receipt.writeln('Total Price: ${_formatPrice(getTotalPrice()*120)}');
+
+return receipt.toString();
+}
+
+String _formatPrice(double price){
+    return 'Kes ${price.toStringAsFixed(2)}';
+}
+
+String _formatAddons(List<Addon> addons){
+     return addons.map((addon)=>'${addon.name} (Kes ${_formatPrice(addon.price*120)})').join(", ");
 }
 
   List<Food> get menu=> _menu;

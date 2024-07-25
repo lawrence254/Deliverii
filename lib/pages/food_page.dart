@@ -34,6 +34,7 @@ class _FoodPage extends State<FoodPage>{
   Widget build(BuildContext context) {
     return Stack(
       children:[ Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: SingleChildScrollView(
           child: Column(
             children: [
