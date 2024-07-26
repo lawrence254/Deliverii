@@ -1,13 +1,23 @@
 import 'package:delifood/components/custom_drawer_tile.dart';
+import 'package:delifood/services/auth/auth_gate.dart';
 import 'package:flutter/material.dart';
 
 import '../pages/settings.dart';
+import '../services/auth/auth_service.dart';
 
 class CustomDrawer extends StatelessWidget{
   const CustomDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    void logout() async{
+      final authService = AuthService();
+      authService.signOut();
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const AuthGate()),
+      );
+    }
     return Drawer(
       backgroundColor: Theme.of(context).colorScheme.surface,
       child: Column(
@@ -36,7 +46,7 @@ class CustomDrawer extends StatelessWidget{
           ),
 
           const Spacer(),
-          CustomDrawerTile(label: "L O G O U T", icon: Icons.logout, onTap: (){}),
+          CustomDrawerTile(label: "L O G O U T", icon: Icons.logout, onTap: logout),
           const SizedBox(height: 25,)
 
         ],

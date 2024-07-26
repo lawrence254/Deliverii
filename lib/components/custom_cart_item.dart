@@ -38,21 +38,23 @@ class CustomCartItem extends StatelessWidget{
                       style: const TextStyle(
                         fontSize: 20,
                     ),),
-                    Text('Kes ${cartItem.food.price*120}')
+                    Text('Kes ${cartItem.food.price*120}'),
+                    const SizedBox(height: 10,),
+
+                    CustomQuantitySelector(
+                        food: cartItem.food,
+                        quantity: cartItem.quantity,
+                        onIncreament:(){ restaurant.addToCart(
+                            cartItem.food,
+                            cartItem.selectedAddons
+                        );},
+                        onDecreament: (){
+                          restaurant.removeFromCart(cartItem);
+                        }
+                    )
                   ],
                 ),
-                const Spacer(),
-                CustomQuantitySelector(
-                    food: cartItem.food,
-                    quantity: cartItem.quantity,
-                    onIncreament:(){ restaurant.addToCart(
-                      cartItem.food,
-                      cartItem.selectedAddons
-                    );},
-                    onDecreament: (){
-                      restaurant.removeFromCart(cartItem);
-                    }
-                )
+
 
               ],
             ),

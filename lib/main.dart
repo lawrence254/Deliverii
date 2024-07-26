@@ -1,10 +1,16 @@
-import 'package:delifood/auth/login_register_toggle.dart';
+
+import 'package:delifood/firebase_options.dart';
 import 'package:delifood/models/restaurants.dart';
+import 'package:delifood/services/auth/auth_gate.dart';
 import 'package:delifood/themes/theme_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(
     MultiProvider(providers: [
         ChangeNotifierProvider(create: (context)=> ThemeProvider()),
@@ -21,7 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:const LoginOrRegister(),
+      home:const AuthGate(),
       theme: Provider.of<ThemeProvider>(context).themeData,
     );
   }

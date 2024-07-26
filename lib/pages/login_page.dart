@@ -1,5 +1,6 @@
 import 'package:delifood/components/custom_button.dart';
 import 'package:delifood/components/custom_text_field.dart';
+import 'package:delifood/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 
 import 'home_page.dart';
@@ -16,12 +17,21 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  void loginHandler(){
-    Navigator.push(context,
-        MaterialPageRoute(
-            builder: (context)=> const HomePage()
-        )
-    );
+  void loginHandler() async{
+    final _authService=AuthService();
+
+    try{
+      await _authService.signInWithEmailandPassword(emailController.text, passwordController.text);
+      Navigator.push(context,
+          MaterialPageRoute(
+              builder: (context)=> const HomePage()
+          )
+      );
+    }catch (e){
+      throw Exception(e.toString());
+    }
+
+
 }
   @override
   Widget build(BuildContext context) {

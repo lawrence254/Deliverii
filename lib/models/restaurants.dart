@@ -329,12 +329,13 @@ class Restaurant extends ChangeNotifier{
   ];
 
   final List<CartItem> _cart =[];
+  String _deliveryAddress="Prim Rose, Katnis Rd";
 
   void addToCart(Food food, List<Addon> selectedAddons){
     CartItem? cartItem = _cart.firstWhereOrNull((item){
        bool isSameFood = item.food == food;
 
-       bool isSameAddons = ListEquality().equals(item.selectedAddons, selectedAddons);
+       bool isSameAddons = const ListEquality().equals(item.selectedAddons, selectedAddons);
 
        return isSameFood && isSameAddons;
     });
@@ -387,6 +388,11 @@ void clearCart(){
     notifyListeners();
 }
 
+void updateDeliveryAddress(String address){
+    _deliveryAddress = address;
+    notifyListeners();
+}
+
 String displayReceipt(){
     final receipt = StringBuffer();
     receipt.writeln("Here's your receipt.");
@@ -413,6 +419,9 @@ String displayReceipt(){
     receipt.writeln();
     receipt.writeln('Total items: ${getTotalItemCount()}');
     receipt.writeln('Total Price: ${_formatPrice(getTotalPrice()*120)}');
+    receipt.writeln();
+    receipt.writeln('Delivering To: $address');
+
 
 return receipt.toString();
 }
@@ -427,5 +436,6 @@ String _formatAddons(List<Addon> addons){
 
   List<Food> get menu=> _menu;
   List<CartItem> get cart => _cart;
+  String get address => _deliveryAddress;
 
 }

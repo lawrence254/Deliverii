@@ -23,7 +23,7 @@ class CartPage extends StatelessWidget{
               showDialog(
                   context:context,
                   builder: (context)=> AlertDialog(
-                title: Text("Delete items in Cart?"),
+                title: const Text("Delete items in Cart?"),
                 actions: [
                   TextButton(onPressed: ()=>Navigator.pop(context), child: const Text("Cancel")),
                   TextButton(onPressed: (){

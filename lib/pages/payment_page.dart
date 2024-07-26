@@ -1,5 +1,4 @@
 import 'package:delifood/components/custom_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 
@@ -43,7 +42,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => DeliveryPage()));
+                              builder: (context) => const DeliveryPage()));
                     }, child: const Text("Yes")),
         ],
       ),

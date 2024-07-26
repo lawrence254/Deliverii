@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: CustomDrawer(),
+      drawer: const CustomDrawer(),
       body: NestedScrollView(
         headerSliverBuilder: (context,innerBoxIsScrolled)=>[
            CustomSliverBar(

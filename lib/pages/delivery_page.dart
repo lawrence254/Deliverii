@@ -1,8 +1,27 @@
 import 'package:delifood/components/receipt.dart';
+import 'package:delifood/models/restaurants.dart';
+import 'package:delifood/services/database/firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class DeliveryPage extends StatelessWidget{
+class DeliveryPage extends StatefulWidget{
   const DeliveryPage({super.key});
+
+  @override
+  State<DeliveryPage> createState() => _DeliveryPageState();
+}
+
+class _DeliveryPageState extends State<DeliveryPage> {
+  FirestoreService db = FirestoreService();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      String receipt = context.read<Restaurant>().displayReceipt();
+      db.saveOrderToDatabase(receipt);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

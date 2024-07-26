@@ -1,3 +1,4 @@
+import 'package:delifood/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 
 import '../components/custom_button.dart';
@@ -17,6 +18,24 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController = TextEditingController();
+
+  void register() async{
+    final _authService =AuthService();
+
+    if(confirmPasswordController.text == passwordController.text){
+      try{
+        await _authService.signUpWithEmailandPassword(emailController.text, passwordController.text);
+      }catch (e){
+        showDialog(context: context, builder: (context)=>AlertDialog(
+          title: Text(e.toString()),
+        ));
+      }
+    }else{
+      showDialog(context: context, builder: (context)=>const AlertDialog(
+        title: Text("Passwords don't match!"),
+      ));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +78,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
             const SizedBox(height: 20,),
             CustomButton(
-                onTap:(){},
+                onTap:register,
                 label: "Sign Up"
             ),
             const SizedBox(height: 25,),

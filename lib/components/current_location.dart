@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/restaurants.dart';
 
 class CurrentLocation extends StatelessWidget{
   const CurrentLocation({super.key});
 
+
   void openLocationSearchBox(BuildContext context) {
+    TextEditingController textController=TextEditingController();
     showDialog(context: context, builder: (context)=>AlertDialog(
       title: const Text("Your location"),
-      content: const TextField(
-        decoration: InputDecoration(hintText: "Your address"),
+      content: TextField(
+        controller: textController,
+        decoration: const InputDecoration(hintText: "Enter address"),
       ),
       actions: [
         MaterialButton(
@@ -15,7 +21,11 @@ class CurrentLocation extends StatelessWidget{
           child: const Text("Cancel"),
         ),
         MaterialButton(
-          onPressed: ()=> Navigator.pop(context),
+          onPressed: (){
+            String newAddress=textController.text;
+            context.read<Restaurant>().updateDeliveryAddress(newAddress);
+            Navigator.pop(context);
+            },
           child: const Text("Save "),
         ),
       ],
@@ -37,8 +47,13 @@ class CurrentLocation extends StatelessWidget{
             onTap: ()=> openLocationSearchBox(context),
             child: Row(
               children: [
-                Text("121 Kilimani Meadows",style: TextStyle(color: Theme.of(context).colorScheme.inversePrimary, fontWeight: FontWeight.bold)),
-                Icon(Icons.keyboard_arrow_down_rounded)
+                Consumer<Restaurant>(
+                  builder: (context, restaurant, child)=> Text(
+                      restaurant.address,
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.inversePrimary,
+                          fontWeight: FontWeight.bold))),
+                const Icon(Icons.keyboard_arrow_down_rounded)
             ]
             ),
           )
