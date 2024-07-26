@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyAPrv8wgSU8VJIjpN6PF5W9QFDpMtslGFg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>876118260802</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.lawrence.delifood.delifood</string>
+	<key>PROJECT_ID</key>
+	<string>deliverii-73b47</string>
+	<key>STORAGE_BUCKET</key>
+	<string>deliverii-73b47.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:876118260802:ios:cfb3e62b257275380b41db</string>
+</dict>
+</plist>

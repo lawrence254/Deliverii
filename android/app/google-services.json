@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "876118260802",
+    "project_id": "deliverii-73b47",
+    "storage_bucket": "deliverii-73b47.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:876118260802:android:1c56588419fb2c590b41db",
+        "android_client_info": {
+          "package_name": "com.lawrence.delifood.delifood"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6d1sRDrFfMXWpxkoHQL9LMceXsUbDAKg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
